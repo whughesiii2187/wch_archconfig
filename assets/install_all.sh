@@ -41,7 +41,7 @@ install_group() {
 
 # Package groups
 core_packages=(
-btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools nwg-displays ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-optimus-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
+btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools nwg-displays ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-abstract-ring-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
 )
 
 hypr_packages=(
@@ -73,11 +73,7 @@ echo -e "${GREEN} Configure limine and snapper for snapshots${NC}"
 source "$ASSETS_DIR"/config-limine-snapper.sh
 
 ## Clone and Stow Dotfiles ##
-if [ -d ~/.dotfiles/.config ]; then
-  echo -e "${YELLOW}Dotfiles appear to be installed already, skipping${NC}"
-else
-  source "$ASSETS_DIR"/install_dotfiles.sh
-fi
+source "$ASSETS_DIR"/install_dotfiles.sh
 
 ## Setup VPN ##
 # ./install_vpn.sh

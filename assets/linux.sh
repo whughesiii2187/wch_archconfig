@@ -42,7 +42,7 @@ echo -e "${GREEN}Creating user home dirs ${NC}"
 xdg-user-dirs-update
 
 echo -e "${GREEN}Setup Plymouth, snapper snapshots ${NC}"
-sudo plymouth-set-default-theme optimus
+sudo plymouth-set-default-theme abstract-ring
 sudo mkinitcpio -P
 
 echo -e "${GREEN}Creating initial snapshot ${NC}"
