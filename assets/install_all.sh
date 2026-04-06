@@ -57,7 +57,7 @@ otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans 
 )
 
 apps_packages=(
-azure-cli bind bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim pinta podman podman-compose podman-docker powershell-bin ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum oh-my-posh satty
+azure-cli bind bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim pinta podman podman-compose podman-docker powershell-bin ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty
 )
 
 install_group core_packages
