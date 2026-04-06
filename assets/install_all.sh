@@ -57,7 +57,7 @@ otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans 
 )
 
 apps_packages=(
-azure-cli bind bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim pinta podman podman-compose podman-docker powershell-bin ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty
+bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim pinta podman podman-compose podman-docker ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty
 )
 
 install_group core_packages
@@ -65,6 +65,11 @@ install_group audio_packages
 install_group hypr_packages
 install_group fonts_packages
 install_group apps_packages
+
+echo -d "${GREEN} Installing some addons. Brew, TMUX TPM, oh-my-zsh..${NC}"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo -e "${GREEN}All packages installed successfully!${NC}"
 
