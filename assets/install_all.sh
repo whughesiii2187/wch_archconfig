@@ -68,8 +68,8 @@ install_group apps_packages
 
 echo -d "${GREEN} Installing some addons. Brew, TMUX TPM, oh-my-zsh..${NC}"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 echo -e "${GREEN}All packages installed successfully!${NC}"
 
