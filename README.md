@@ -1,1 +1,1 @@
-Nothing really to see here. I am experimenting and hopefully will not step in any toes,
+This here is my full arch config. Many of the settings and scripts setup was borrowed from ML4W and Omarchy. Some things remain the same while some were tweaked for my purposes. All in all, it is a system that fits my purposes and I am glad that ML4W and Omarchy have their stuff posted for others to use. 
