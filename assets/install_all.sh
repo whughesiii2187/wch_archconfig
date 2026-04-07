@@ -41,7 +41,7 @@ install_group() {
 
 # Package groups
 core_packages=(
-btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools nwg-displays ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-abstract-ring-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
+btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools nwg-displays hyprdynamicmonitors-bin ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-abstract-ring-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
 )
 
 hypr_packages=(
@@ -49,7 +49,7 @@ elephant elephant-bluetooth elephant-calc elephant-clipboard elephant-desktopapp
 )
 
 audio_packages=(
-bluez bluez-obex bluez-utils bluetuith pamixer pipewire pipewire-jack pipewire-pulse playerctl wiremix wireplumber ffplay vlc sof-firmware pipewire-alsa libpulse
+bluez bluez-obex bluez-utils bluetuith pamixer pipewire pipewire-jack pipewire-pulse playerctl wiremix wireplumber ffplay sof-firmware pipewire-alsa libpulse
 )
 
 fonts_packages=(
@@ -57,7 +57,7 @@ otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans 
 )
 
 apps_packages=(
-bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim pinta podman podman-compose podman-docker ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty
+bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim podman podman-compose podman-docker ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty pinta vlc
 )
 
 install_group core_packages
