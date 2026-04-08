@@ -24,7 +24,7 @@ install_pkg() {
 
     # Final fallback to pacman
     echo -e "${YELLOW}Falling back to pacman for $pkg...${NC}"
-    sudo pacman -S --noconfirm --needed "$pkg"
+    sudo pacman -S --noconfirm --needed "$pkg" 
 }
 
 # Function to install a whole group

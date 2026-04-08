@@ -35,6 +35,12 @@ elephant service enable
 
 sudo cp -R "$SCRIPT_DIR"/etc/modprobe.d/alsa.conf /etc/modprobe.d/alsa.conf
 
+if [ ! -d "/etc/containers" ]; then
+  sudo mkdir -p /etc/containers
+fi
+
+sudo touch /etc/containers/nodocker
+
 echo -e "${GREEN}Changing shell to zsh ${NC}"
 chsh -s $(which zsh)
 

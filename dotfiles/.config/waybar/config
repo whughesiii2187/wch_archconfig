@@ -21,7 +21,8 @@
     },
     // Modules Left
     "modules-left": [
-        "custom/logo",
+        "custom/exit"
+        //"custom/logo",
         "hyprland/workspaces"//,
         //"custom/windowsvm"
     ],
@@ -38,6 +39,5 @@
         "network",
         "battery",
         "power-profiles-daemon",
-        "custom/exit"
     ]
 }
