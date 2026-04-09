@@ -21,7 +21,7 @@
     },
     // Modules Left
     "modules-left": [
-        "custom/exit"
+        "custom/exit",
         //"custom/logo",
         "hyprland/workspaces"//,
         //"custom/windowsvm"

@@ -111,17 +111,17 @@
     }
   },
   // Power Profiles Daemon
-  //"power-profiles-daemon": {
-   // "format": "{icon}",
-    //"tooltip-format": "Power profile: {profile}",
-    //"tooltip": true,
-    //"format-icons": {
-     // "default": "",
-     // "performance": "",
-     // "balanced": "",
-     // "power-saver": ""
-   // }
-  //},
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
   // Wireplumber because pulse is old
   "wireplumber": {
     "scroll-step": 5, // %, can be a float
