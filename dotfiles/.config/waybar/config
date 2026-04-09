@@ -16,8 +16,8 @@
         "return-type": "json",
         "exec": "~/.config/hypr/scripts/updates.sh",
         "restart-interval": 60,
+        "signal": 1,
         "on-click": "$(cat ~/.config/hypr/settings/terminal.sh) --class=dotfiles-floating -e ~/.config/hypr/scripts/installupdates.sh",
-        "on-click-right": "~/.config/hypr/settings/software.sh"
     },
     // Modules Left
     "modules-left": [
