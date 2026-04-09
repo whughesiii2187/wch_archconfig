@@ -45,7 +45,7 @@ btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazell
 )
 
 hypr_packages=(
-elephant elephant-bluetooth elephant-calc elephant-clipboard elephant-desktopapplications elephant-files elephant-menus elephant-providerList elephant-runner elephant-symbols elephant-todo elephant-unicode elephant-websearch gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git
+elephant elephant-desktopapplications elephant-menus elephant-providerList elephant-unicode gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git
 )
 
 audio_packages=(
