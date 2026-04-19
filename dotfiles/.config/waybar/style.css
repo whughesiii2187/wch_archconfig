@@ -12,6 +12,7 @@
 @define-color textcolor3 #FFFFFF;
 @define-color iconcolor #FFFFFF;
 @define-color primary_container #1e4876;
+@define-color halloween #ffa500;
 
 * {
     font-family: "Fira Sans", "Font Awesome", "Material Icons", sans-serif;
@@ -23,9 +24,11 @@
  * Waybar Background & Transitions
  * ----------------------------------------------------- */
 #waybar {
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: rgba(0,0,0,0.4);*/
+    background-color: @halloween;
     transition: background-color 0.5s;
-    padding: 2px 5px; 
+    padding: 5px 5px; 
+    opacity: 0.6;
 }
 
 /* -----------------------------------------------------
@@ -39,23 +42,27 @@
  * Workspaces (Shrink Padding and Margin)
  * ----------------------------------------------------- */
 #workspaces {
-    margin: 0 5px; 
+    margin: 0 3px; 
     color: @textcolor1;
     font-size: 11px;
+    font-weight: bold;
+    opacity: 1;
 }
 
 #workspaces button {
     margin: 0 1px;
     padding: 0 4px;
-    color: @textcolor3;
+    color: @primary_container;
+    /* color: @textcolor3; */
     transition: all 0.3s ease-in-out;
-    min-width: 9px;
+    min-width: 6px;
+    opacity: 1;
 }
 
 #workspaces button.active,
 #workspaces button:hover {
     color: @textcolor1;
-    background: @primary_container;
+    /* background: @primary_container; */
     border-radius: 1px;
 }
 
@@ -77,11 +84,12 @@ tooltip label {
 /* -----------------------------------------------------
  * Window
  * ----------------------------------------------------- */
-#window {
+#custom-windowsvm {
     margin-right: 8px;
-    border-radius: 8px;
-    color: @textcolor1;
-    font-size: 12px;
+    margin-left: 8px;
+    border-radius: 4px;
+    color: @primary_container;
+    font-size: 13px;
 }
 
 /* -----------------------------------------------------
@@ -101,16 +109,20 @@ tooltip label {
 /* -----------------------------------------------------
  * Custom Modules (Shrink Padding and Margin)
  * ----------------------------------------------------- */
-#custom-appmenu,
-#custom-notification,
-#custom-exit,
+/* #custom-appmenu, */
+/* #custom-notification, */
+#custom-exit{
+    font-size: 13px;
+    color: @primary_container;
+    /* margin-right: 3px; */
+    padding: 0;
+}
 #custom-updates {
     font-size: 13px;
-    color: @textcolor1;
+    color: @primary_container;
     margin-right: 6px;
     padding: 0;
 }
-
 #custom-notification {
     font-family: "Material Icons";
     opacity: 0.8;
@@ -127,17 +139,18 @@ tooltip label {
 #wireplumber,
 #network {
     font-size: 13px;
-    color: @textcolor1;
+    color: @primary_container;
     margin-right: 4px;
 }
 
 #power-profiles-daemon {
-    color: @iconcolor;
+    color: @primary_container;
 }
 
 #clock {
     font-size: 10px;
-    color: @textcolor1;
+    font-weight: bold;
+    color: @primary_container;
     margin-right: 6px;
 }
 
@@ -146,13 +159,13 @@ tooltip label {
  * ----------------------------------------------------- */
 #battery {
     font-size: 13px;
-    color: @textcolor1;
+    color: @primary_container;
     margin-right: 6px;
 }
 
 #bluetooth {
     font-size: 13px;
-    color: @textcolor1;
+    color: @primary_container;
     margin-right: 6px;
 }
 #battery.critical:not(.charging) {
@@ -198,5 +211,5 @@ tooltip label {
 }
 
 .modules-right > widget:last-child {
-    margin-right: 6px;
+    margin-right: 5px;
 }

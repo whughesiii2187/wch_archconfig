@@ -50,9 +50,10 @@
   // Windows VM
   "custom/windowsvm": {
     "format": "",
-    "on-click": "kitty $HOME/.config/hypr/scripts/launchvm.sh install",
-    "on-click-right": "kitty $HOME/.config/hypr/scripts/launchvm.sh remove",
-    "tooltip-format": "Left: Launch Win11 VM\nRight: Remove Win11 VM"
+    "on-click": "~/.config/hypr/scripts/launchvm.sh launch",
+    "on-click-middle": "$(cat ~/.config/hypr/settings/terminal.sh) --class=dotfiles-floating -e ~/.config/hypr/scripts/launchvm.sh install",
+    "on-click-right": "$(cat ~/.config/hypr/settings/terminal.sh) --class=dotfiles-floating -e ~/.config/hypr/scripts/launchvm.sh remove",
+    "tooltip-format": "Left: Launch Win11 VM\nRight: Remove Win11 VM\nMiddle: Install Win11"
   },
   // Clock
   "clock": {
@@ -104,22 +105,10 @@
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
-    "on-click": "~/.config/hypr/scripts/menu.sh system",
+    "on-click": "~/.config/hypr/scripts/menu.sh power",
     "states": {
       "warning": 20,
       "critical": 10
-    }
-  },
-  // Power Profiles Daemon
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "tooltip-format": "Power profile: {profile}",
-    "tooltip": true,
-    "format-icons": {
-      "default": "",
-      "performance": "",
-      "balanced": "",
-      "power-saver": ""
     }
   },
   // Wireplumber because pulse is old
@@ -135,7 +124,8 @@
         ""
       ]
     },
-    "on-click": "kitty -e wiremix"
+    "on-click": "ghostty -e wiremix"
+
   },
   // Bluetooth
   "bluetooth": {

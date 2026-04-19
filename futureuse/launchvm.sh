@@ -176,7 +176,7 @@ EOF
   cat << EOF | tee "$COMPOSE_FILE" > /dev/null
 services:
   windows:
-    image: dockurr/windows
+    image: docker.io/dockurr/windows
     container_name: omarchy-windows
     environment:
       VERSION: "11"
@@ -208,14 +208,14 @@ EOF
   echo "Monitor installation progress at: http://127.0.0.1:8006"
   echo ""
 
-  # Start docker-compose with user's config
-  echo "Starting Windows VM with docker-compose..."
+  # Start podman-compose with user's config
+  echo "Starting Windows VM with podman-compose..."
   if ! podman-compose -f "$COMPOSE_FILE" up -d 2>&1; then
     echo "❌ Failed to start Windows VM!"
     echo "   Common issues:"
-    echo "   - Docker daemon not running: sudo systemctl start docker"
+    echo "   - Podman not running properly: check podman info"
     echo "   - Port already in use: check if another VM is running"
-    echo "   - Permission issues: make sure you're in the docker group"
+    echo "   - Permission issues: make sure KVM access is available"
     exit 1
   fi
 
@@ -242,9 +242,9 @@ EOF
 remove_windows() {
   echo "Removing Windows VM..."
 
-  docker-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
+  podman-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
 
-  docker rmi dockurr/windows 2>/dev/null || echo "Image already removed or not found"
+  podman rmi dockurr/windows 2>/dev/null || echo "Image already removed or not found"
 
   rm "$HOME/.local/share/applications/windows-vm.desktop"
   rm -rf "$HOME/.config/windows"
@@ -267,18 +267,18 @@ launch_windows() {
   fi
 
   # Check if container is already running
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(podman inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null || echo "missing")
 
   if [ "$CONTAINER_STATUS" != "running" ]; then
     echo "Starting Windows VM..."
 
     # Send desktop notification
-    notify-send "    Starting Windows VM" "      This can take 15-30 seconds" -t 15000
+    notify-send "    Starting Windows VM" "      This can take 15-30 seconds" -t 15000
 
-    if ! docker-compose -f "$COMPOSE_FILE" up -d 2>&1; then
+    if ! podman-compose -f "$COMPOSE_FILE" up -d 2>&1; then
       echo "❌ Failed to start Windows VM!"
       echo "   Try checking: omarchy-windows-vm status"
-      echo "   View logs: docker logs omarchy-windows"
+      echo "   View logs: podman logs omarchy-windows"
       notify-send -u critical "Windows VM" "Failed to start Windows VM"
       exit 1
     fi
@@ -345,7 +345,7 @@ To stop: omarchy-windows-vm stop"
   if [ "$KEEP_ALIVE" = false ]; then
     echo ""
     echo "RDP session closed. Stopping Windows VM..."
-    docker-compose -f "$COMPOSE_FILE" down
+    podman-compose -f "$COMPOSE_FILE" down
     echo "Windows VM stopped."
   else
     echo ""
@@ -361,7 +361,7 @@ stop_windows() {
   fi
 
   echo "Stopping Windows VM..."
-  docker-compose -f "$COMPOSE_FILE" down
+  podman-compose -f "$COMPOSE_FILE" down
   echo "Windows VM stopped."
 }
 
@@ -372,9 +372,9 @@ status_windows() {
     exit 1
   fi
 
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(podman inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null || echo "missing")
 
-  if [ -z "$CONTAINER_STATUS" ]; then
+  if [ "$CONTAINER_STATUS" = "missing" ]; then
     echo "Windows VM container not found."
     echo "To start: omarchy-windows-vm launch"
   elif [ "$CONTAINER_STATUS" = "running" ]; then

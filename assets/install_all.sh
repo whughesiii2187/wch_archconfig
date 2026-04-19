@@ -41,11 +41,11 @@ install_group() {
 
 # Package groups
 core_packages=(
-btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools nwg-displays hyprdynamicmonitors-bin ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-abstract-ring-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
+btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazelle-tui gdu inetutils inotify-tools jq nwg-displays hyprdynamicmonitors-bin ly modemmanager networkmanager networkmanager-openvpn plymouth plymouth-theme-abstract-ring-git stow tlp tlp-pd udiskie ufw unzip usbutils wget wireguard-tools zsh bolt 
 )
 
 hypr_packages=(
-elephant elephant-desktopapplications elephant-menus elephant-providerList elephant-unicode gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git
+elephant elephant-desktopapplications elephant-menus elephant-providerList elephant-unicode gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git uwsm pacman-contrib
 )
 
 audio_packages=(
@@ -57,7 +57,7 @@ otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans 
 )
 
 apps_packages=(
-bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim podman podman-compose podman-docker ripgrep spotify thunar tmux zen-browser-bin figlet fzf gum satty pinta vlc
+bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim podman podman-compose podman-docker ripgrep spotify thunar tumbler tmux floorp-bin figlet fzf gum satty qbittorrent mpv qimgv pinta
 )
 
 install_group core_packages
@@ -88,5 +88,12 @@ source "$ASSETS_DIR"/config-limine-snapper.sh
 ## Clone and Stow Dotfiles ##
 source "$ASSETS_DIR"/install_dotfiles.sh
 
-## Setup VPN ##
-# ./install_vpn.sh
+read -rp "Install Virtual Machine tools? (Y/n): " confirm
+if [[ ! "$confirm" =~ ^[Nn]$ ]]; then
+    echo "Beginning virtual machine package install."
+    ./7-kvm.sh
+else
+    echo "Skipping VM tools install."
+    echo "To install VM tools, navigate to ${$PWD} to install."
+    exit 0
+fi

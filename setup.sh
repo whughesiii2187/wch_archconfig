@@ -7,6 +7,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ASSETS_DIR="${SCRIPT_DIR}/assets"
 SETUP_SCRIPT="${ASSETS_DIR}/linux.sh"
+SUDOERS_DROP="/etc/sudoers.d/99-setup-nopasswd"
 
 # ────────────────────────────────
 # Network check
@@ -35,6 +36,15 @@ if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
   echo "Setup aborted."
   exit 0
 fi
+
+# ────────────────────────────────
+# Passwordless for unattended install
+# ────────────────────────────────
+
+echo "Enter your password once — setup will run unattended from here."
+sudo bash -c "echo '${USER} ALL=(ALL) NOPASSWD: ALL' > ${SUDOERS_DROP} && chmod 440 ${SUDOERS_DROP}"
+
+trap 'echo "Cleaning up passwordless sudo..."; sudo rm -f "$SUDOERS_DROP"' EXIT
 
 # ────────────────────────────────
 # Hand off to linux.sh

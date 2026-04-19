@@ -35,16 +35,18 @@ install_windows() {
 
   check_prerequisites
 
-  omarchy-pkg-add freerdp openbsd-netcat gum
+  yay -S --noconfirm --needed freerdp openbsd-netcat gum
 
   mkdir -p "$HOME/.windows"
   mkdir -p "$HOME/.config/windows"
+  mkdir -p "$HOME/.local/share/applications/icons"
 
+  # Install Windows VM desktop file
   cat << EOF | tee "$HOME/.local/share/applications/windows-vm.desktop" > /dev/null
 [Desktop Entry]
 Name=Windows
 Comment=Start Windows VM via Docker and connect with RDP
-Exec=uwsm app -- omarchy-windows-vm launch
+Exec=$HOME/.config/hypr.scripts/launchvm.sh launch
 Icon=$HOME/.local/share/applications/icons/windows.png
 Terminal=false
 Type=Application
@@ -170,8 +172,8 @@ EOF
   cat << EOF | tee "$COMPOSE_FILE" > /dev/null
 services:
   windows:
-    image: dockurr/windows
-    container_name: omarchy-windows
+    image: docker.io/dockurr/windows
+    container_name: windows
     environment:
       VERSION: "11"
       RAM_SIZE: "$SELECTED_RAM"
@@ -202,14 +204,14 @@ EOF
   echo "Monitor installation progress at: http://127.0.0.1:8006"
   echo ""
 
-  # Start docker-compose with user's config
-  echo "Starting Windows VM with docker-compose..."
+  # Start podman-compose with user's config
+  echo "Starting Windows VM with podman-compose..."
   if ! podman-compose -f "$COMPOSE_FILE" up -d 2>&1; then
     echo "❌ Failed to start Windows VM!"
     echo "   Common issues:"
-    echo "   - Docker daemon not running: sudo systemctl start docker"
+    echo "   - Podman not running properly: check podman info"
     echo "   - Port already in use: check if another VM is running"
-    echo "   - Permission issues: make sure you're in the docker group"
+    echo "   - Permission issues: make sure KVM access is available"
     exit 1
   fi
 
@@ -228,7 +230,7 @@ EOF
   echo ""
   echo "Once finished, launch 'Windows' via Super + Space"
   echo ""
-  echo "To stop the VM: omarchy-windows-vm stop"
+  echo "To stop the VM: launchvm.sh stop"
   echo "To change resources: ~/.config/windows/docker-compose.yml"
   echo ""
 }
@@ -236,9 +238,9 @@ EOF
 remove_windows() {
   echo "Removing Windows VM..."
 
-  docker-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
+  podman-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
 
-  docker rmi dockurr/windows 2>/dev/null || echo "Image already removed or not found"
+  podman rmi dockurr/windows 2>/dev/null || echo "Image already removed or not found"
 
   rm "$HOME/.local/share/applications/windows-vm.desktop"
   rm -rf "$HOME/.config/windows"
@@ -256,23 +258,23 @@ launch_windows() {
 
   # Check if config exists
   if [ ! -f "$COMPOSE_FILE" ]; then
-    echo "Windows VM not configured. Please run: omarchy-windows-vm install"
+    echo "Windows VM not configured. Please run: ~/.config/hypr/scripts/launchvm.sh install"
     exit 1
   fi
 
   # Check if container is already running
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(podman inspect --format='{{.State.Status}}' windows 2>/dev/null || echo "missing")
 
   if [ "$CONTAINER_STATUS" != "running" ]; then
     echo "Starting Windows VM..."
 
     # Send desktop notification
-    notify-send "    Starting Windows VM" "      This can take 15-30 seconds" -t 15000
+    notify-send "    Starting Windows VM" "      This can take 15-30 seconds" -t 15000
 
-    if ! docker-compose -f "$COMPOSE_FILE" up -d 2>&1; then
+    if ! podman-compose -f "$COMPOSE_FILE" up -d 2>&1; then
       echo "❌ Failed to start Windows VM!"
-      echo "   Try checking: omarchy-windows-vm status"
-      echo "   View logs: docker logs omarchy-windows"
+      echo "   Try checking: ~/.config/hypr/scripts/launchvm.sh status"
+      echo "   View logs: podman logs windows"
       notify-send -u critical "Windows VM" "Failed to start Windows VM"
       exit 1
     fi
@@ -306,7 +308,7 @@ launch_windows() {
   # Build the connection info
   if [ "$KEEP_ALIVE" = true ]; then
     LIFECYCLE="VM will keep running after RDP closes
-To stop: omarchy-windows-vm stop"
+To stop: ~/.config/hypr/scripts/launchvm.sh stop"
   else
     LIFECYCLE="VM will auto-stop when RDP closes"
   fi
@@ -333,18 +335,18 @@ To stop: omarchy-windows-vm stop"
   # If scale is less than 130%, don't set any scale (use default 100)
 
   # Connect with RDP in fullscreen (auto-detects resolution)
-  xfreerdp3 /u:"$WIN_USER" /p:"$WIN_PASS" /v:127.0.0.1:3389 -grab-keyboard /sound /microphone /cert:ignore /title:"Windows VM - Omarchy" /dynamic-resolution /gfx:AVC444 /floatbar:sticky:off,default:visible,show:fullscreen $RDP_SCALE
+  xfreerdp3 /u:"$WIN_USER" /p:"$WIN_PASS" /v:127.0.0.1:3389 -grab-keyboard /sound /microphone /cert:ignore /title:"Windows VM" /dynamic-resolution /gfx:AVC444 /floatbar:sticky:off,default:visible,show:fullscreen $RDP_SCALE
 
   # After RDP closes, stop the container unless --keep-alive was specified
   if [ "$KEEP_ALIVE" = false ]; then
     echo ""
     echo "RDP session closed. Stopping Windows VM..."
-    docker-compose -f "$COMPOSE_FILE" down
+    podman-compose -f "$COMPOSE_FILE" down
     echo "Windows VM stopped."
   else
     echo ""
     echo "RDP session closed. Windows VM is still running."
-    echo "To stop it: omarchy-windows-vm stop"
+    echo "To stop it: ~/.config/hypr/scripts/launchvm.sh stop"
   fi
 }
 
@@ -355,22 +357,22 @@ stop_windows() {
   fi
 
   echo "Stopping Windows VM..."
-  docker-compose -f "$COMPOSE_FILE" down
+  podman-compose -f "$COMPOSE_FILE" down
   echo "Windows VM stopped."
 }
 
 status_windows() {
   if [ ! -f "$COMPOSE_FILE" ]; then
     echo "Windows VM not configured."
-    echo "To set up: omarchy-windows-vm install"
+    echo "To set up: ~/.config/hypr/scripts/launchvm.sh install"
     exit 1
   fi
 
-  CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' omarchy-windows 2>/dev/null)
+  CONTAINER_STATUS=$(podman inspect --format='{{.State.Status}}' windows 2>/dev/null || echo "missing")
 
-  if [ -z "$CONTAINER_STATUS" ]; then
+  if [ "$CONTAINER_STATUS" = "missing" ]; then
     echo "Windows VM container not found."
-    echo "To start: omarchy-windows-vm launch"
+    echo "To start: ~/.config/hypr/scripts/launchvm.sh launch"
   elif [ "$CONTAINER_STATUS" = "running" ]; then
     gum style \
       --border normal \
@@ -382,16 +384,16 @@ status_windows() {
       "Web interface: http://127.0.0.1:8006" \
       "RDP available: port 3389" \
       "" \
-      "To connect: omarchy-windows-vm launch" \
-      "To stop:    omarchy-windows-vm stop"
+      "To connect: ~/.config/hypr/scripts/launchvm.sh launch" \
+      "To stop:    ~/.confit/hypr/scripts/launchvm.sh stop"
   else
     echo "Windows VM is stopped (status: $CONTAINER_STATUS)"
-    echo "To start: omarchy-windows-vm launch"
+    echo "To start: ~/.config/hypr/scripts/launchvm.sh launch"
   fi
 }
 
 show_usage() {
-  echo "Usage: omarchy-windows-vm [command] [options]"
+  echo "Usage: ~/.config/hypr/scripts/launchvm.sh [command] [options]"
   echo ""
   echo "Commands:"
   echo "  install              Install and configure Windows VM"
@@ -404,10 +406,10 @@ show_usage() {
   echo "  help                 Show this help message"
   echo ""
   echo "Examples:"
-  echo "  omarchy-windows-vm install           # Set up Windows VM for first time"
-  echo "  omarchy-windows-vm launch            # Connect to VM (auto-stop on exit)"
-  echo "  omarchy-windows-vm launch -k         # Connect to VM (keep running)"
-  echo "  omarchy-windows-vm stop              # Shut down the VM"
+  echo "  ~/.config/hypr/scripts/launchvm.sh install           # Set up Windows VM for first time"
+  echo "  ~/.config/hypr/scripts/launchvm.sh launch            # Connect to VM (auto-stop on exit)"
+  echo "  ~/.config/hypr/scripts/launchvm.sh launch -k         # Connect to VM (keep running)"
+  echo "  ~/.config/hypr/scripts/launchvm.sh stop              # Shut down the VM"
 }
 
 # Main command dispatcher

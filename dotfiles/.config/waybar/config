@@ -22,18 +22,16 @@
     // Modules Left
     "modules-left": [
         "custom/exit",
-        //"custom/logo",
-        "hyprland/workspaces"//,
-        //"custom/windowsvm"
+        "hyprland/workspaces",
+        "custom/windowsvm"
     ],
     // Modules Center
     "modules-center": [
-      "hyprland/window"
+        "clock"
     ],
     // Modules Right
     "modules-right": [
         "custom/updates",
-        "clock",
         "wireplumber",
         "bluetooth",
         "network",

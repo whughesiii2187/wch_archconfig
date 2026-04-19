@@ -80,7 +80,7 @@ fi
 echo
 
 # Reload Waybar
-pkill -RTMIN+1 waybar
+pkill waybar && hyprctl dispatch exec waybar
 
 # Finishing
 echo ":: Update complete! Press [ENTER] to close."
