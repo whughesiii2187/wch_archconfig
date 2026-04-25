@@ -4,6 +4,9 @@ set -euo pipefail
 echo -e "${GREEN}Updating system...${NC}"
 sudo pacman -Syu --noconfirm
 
+echo -e "${GREEN}Verifying Prereqs...${NC}"
+sudo pacman -S --needed --noconfirm dbugedit fakeroot base-devel curl vim
+
 # Install yay (AUR helper)
 # Check if aur.archlinux.org is up
 echo -e "${GREEN}Checking if aur.archlinux.org is reachable...${NC}"
