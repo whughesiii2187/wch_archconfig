@@ -5,7 +5,7 @@ echo -e "${GREEN}Updating system...${NC}"
 sudo pacman -Syu --noconfirm
 
 echo -e "${GREEN}Verifying Prereqs...${NC}"
-sudo pacman -S --needed --noconfirm dbugedit fakeroot base-devel curl vim
+sudo pacman -S --needed --noconfirm debugedit fakeroot base-devel curl vim
 
 # Install yay (AUR helper)
 # Check if aur.archlinux.org is up
