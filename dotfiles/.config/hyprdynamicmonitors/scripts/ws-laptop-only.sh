@@ -12,4 +12,5 @@ hyprctl dispatch moveworkspacetomonitor 3 eDP-1
 hyprctl dispatch moveworkspacetomonitor 4 eDP-1
 hyprctl dispatch moveworkspacetomonitor 5 eDP-1
 
+sleep 2
 hyprctl reload

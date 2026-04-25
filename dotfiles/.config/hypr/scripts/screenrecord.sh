@@ -4,7 +4,7 @@
 # Alternative location can be set via OMARCHY_SCREENRECORD_DIR or XDG_VIDEOS_DIR ENVs.
 
 [[ -f ~/.config/user-dirs.dirs ]] && source ~/.config/user-dirs.dirs
-OUTPUT_DIR="${$HOME/Videos}}"
+OUTPUT_DIR="$HOME/Videos"
 
 if [[ ! -d "$OUTPUT_DIR" ]]; then
   notify-send "Screen recording directory does not exist: $OUTPUT_DIR" -u critical -t 3000

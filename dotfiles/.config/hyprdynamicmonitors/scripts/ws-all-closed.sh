@@ -15,4 +15,5 @@ hyprctl dispatch moveworkspacetomonitor 3 DP-1
 hyprctl dispatch moveworkspacetomonitor 4 DP-1
 hyprctl dispatch moveworkspacetomonitor 5 DP-1
 
+sleep 3
 hyprctl reload
