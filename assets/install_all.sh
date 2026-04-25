@@ -45,15 +45,15 @@ btrfs-progs brightnessctl cups cups-browsed cups-filters cups-pdf dust fd gazell
 )
 
 hypr_packages=(
-elephant elephant-desktopapplications elephant-menus elephant-providerList elephant-unicode gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git uwsm pacman-contrib
+elephant-bin elephant-desktopapplications-bin elephant-menus-bin elephant-providerlist-bin elephant-unicode-bin gpu-screen-recorder hplip hypridle hyprland hyprland-guiutils hyprland-preview-share-picker hyprlock hyprnotify hyprpaper hyprsunset mako swayosd system-config-printer walker-bin waybar wayfreeze wayland wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs gtk3 gtk4 qt5-wayland qt6-wayland grim slurp waypaper-git uwsm pacman-contrib
 )
 
 audio_packages=(
-bluez bluez-obex bluez-utils bluetuith pamixer pipewire pipewire-jack pipewire-pulse playerctl wiremix wireplumber ffplay sof-firmware pipewire-alsa libpulse
+bluez bluez-obex bluez-utils bluetuith-bin pamixer pipewire pipewire-jack pipewire-pulse playerctl wiremix wireplumber ffplay sof-firmware pipewire-alsa libpulse
 )
 
 fonts_packages=(
-otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans noto-fonts-emoji ttg-jetbrains-mono-nerd
+otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans noto-fonts-emoji ttf-jetbrains-mono-nerd
 )
 
 apps_packages=(
