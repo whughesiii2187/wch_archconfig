@@ -94,6 +94,5 @@ if [[ ! "$confirm" =~ ^[Nn]$ ]]; then
     ./7-kvm.sh
 else
     echo "Skipping VM tools install."
-    echo "To install VM tools, navigate to ${$PWD} to install."
-    exit 0
+    echo "To install VM tools, navigate to ${PWD} to install."
 fi
