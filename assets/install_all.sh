@@ -57,7 +57,7 @@ otf-font-awesome ttf-0xproto-nerd ttf-fira-code ttf-firacode-nerd ttf-fira-sans 
 )
 
 apps_packages=(
-bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim podman podman-compose podman-docker ripgrep spotify thunar tumbler tmux floorp-bin figlet fzf gum satty qbittorrent mpv qimgv pinta
+bitwarden btop evince fastfetch ghostty lazygit libreoffice-fresh neovim podman podman-compose podman-docker ripgrep spotify thunar tumbler tmux floorp-bin fzf gum satty qbittorrent mpv qimgv pinta
 )
 
 install_group core_packages
